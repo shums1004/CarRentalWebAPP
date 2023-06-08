@@ -45,8 +45,9 @@ public class BookCarController {
     CarPhotoDAO carPhotoDAO;
 
     @GetMapping ("/bookCar.htm")
-    public String viewCarsGet(ModelMap model, Booking booking, CarPhoto carPhoto) throws Exception {
+    public String viewCarsGet(ModelMap model, Booking booking, CarPhoto carPhoto, HttpSession session) throws Exception {
 
+        if (manageSession(session)) return "home";
         CarDao carDao = new CarDao();
         List<Car> carList = carDao.list();
         for(int i=0; i<carList.size();i++){
@@ -116,6 +117,7 @@ public class BookCarController {
     @GetMapping("/myBookings.htm")
     public String myBookings(ModelMap model, Booking booking, BookingDAO bookingDAO,HttpSession session, HttpServletRequest request) throws Exception{
 
+        if (manageSession(session)) return "home";
         request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         List<Booking> myBookings = bookingDAO.list(customer.getEmail());
@@ -127,6 +129,7 @@ public class BookCarController {
 
     @GetMapping("/modifyMyBooking.htm")
     public String modifyMyBookingGet(ModelMap model, HttpSession session,HttpServletRequest request) throws Exception{
+        if (manageSession(session)) return "home";
         request.getSession();
         Customer customer1 = (Customer)session.getAttribute("customer");
 
@@ -184,6 +187,23 @@ public class BookCarController {
         double daysDifference = TimeUnit.DAYS.convert(timeDifference, TimeUnit.MILLISECONDS);
 
         return daysDifference;
+    }
+
+    private boolean manageSession(HttpSession session) {
+        Customer customer = null;
+        if(session.getAttribute("customer") != null) {
+            customer = (Customer)session.getAttribute("customer");
+        }
+
+        if(customer == null) {
+            System.out.println("");
+            return true;
+        }
+        if(customer.getCategory().equals("carOwner")){
+            return true;
+        }
+
+        return false;
     }
 
 }

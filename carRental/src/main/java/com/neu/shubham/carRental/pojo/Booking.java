@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Component
 @Entity
-@Table(name = "bookings", schema = "carApplication")
+@Table(name = "bookings", schema = "carRentalApp")
 public class Booking {
     private int bookingId;
     private String customerEmail;

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Component
 @Entity
-@Table(name= "licenseDetails", schema="carApplication")
+@Table(name= "licenseDetails", schema="carRentalApp")
 public class License {
 
     @Id

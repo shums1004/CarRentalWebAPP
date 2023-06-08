@@ -32,7 +32,7 @@ public class ReturnCarController {
 
     @GetMapping("/returnCar.htm")
     public String returnCarGet(ModelMap model, Booking booking, HttpSession session, HttpServletRequest request) throws Exception{
-
+        if (manageSession(session)) return "home";
         request.getSession();
         Customer customer1 = (Customer)session.getAttribute("customer");
 
@@ -63,12 +63,24 @@ public class ReturnCarController {
         catch(Exception e){
             return "errorPage";
         }
-
-
-
-
     }
 
+    private boolean manageSession(HttpSession session) {
+        Customer customer = null;
+        if(session.getAttribute("customer") != null) {
+            customer = (Customer)session.getAttribute("customer");
+        }
+
+        if(customer == null) {
+            System.out.println("");
+            return true;
+        }
+        if(customer.getCategory().equals("carOwner")){
+            return true;
+        }
+
+        return false;
+    }
 
 
 }

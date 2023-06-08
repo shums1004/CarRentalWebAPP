@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpSession;
 
-@SpringBootApplication(scanBasePackages = {"com.neu.shubham.carRental.controller", "com.neu.shubham.carRental.pojo", "com.neu.shubham.carRental.dao", "com.neu.shubham.carRental.validator", "com.neu.shubham.carRental.config"})
+@SpringBootApplication(scanBasePackages = {"com.neu.shubham.carRental.controller", "com.neu.shubham.carRental.pojo", "com.neu.shubham.carRental.dao", "com.neu.shubham.carRental.validator"})
 public class CarRentalApplication extends ServletInitializer implements WebMvcConfigurer {
 
 	public static void main(String[] args) {

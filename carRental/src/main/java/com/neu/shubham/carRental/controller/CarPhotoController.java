@@ -36,6 +36,9 @@ public class CarPhotoController {
 
     @GetMapping("/addCarPhoto.htm")
     public String uploadPhotoGet(ModelMap model, HttpSession session, HttpServletRequest request){
+
+        if (manageSession(session)) return "home";
+
         request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         CarDao carDao = new CarDao();
@@ -91,4 +94,22 @@ public class CarPhotoController {
 
         return "carAdded";
     }
+    private boolean manageSession(HttpSession session) {
+        Customer customer = null;
+        if(session.getAttribute("customer") != null) {
+            customer = (Customer)session.getAttribute("customer");
+        }
+
+        if(customer == null) {
+            System.out.println("");
+            return true;
+        }
+        if(customer.getCategory().equals("customer")){
+            return true;
+        }
+
+        return false;
+    }
+
+
 }

@@ -16,7 +16,7 @@
 <body>
 
 <h1 align="center"> My Car List</h1>
-<div style="margin-left: 40%">
+<div>
     <form:form method="post" modelAttribute="myCarList" action="${pageContext.request.contextPath}/viewMyCars.htm">
 
     <table border="2" width="100%">

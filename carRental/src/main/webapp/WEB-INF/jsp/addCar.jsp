@@ -25,6 +25,8 @@
         <option value="JEEP"> JEEP</option>
         <option value="MERCEDES"> MERCEDES</option>
         <option value="TOYOTA"> TOYOTA</option>
+        <option value="Audi">Audi</option>
+        <option value="Chevrolet">Chevrolet</option>
     </form:select><br/><br/>
         Model : <form:input path="model" name="model" type="text"></form:input>
                 <form:errors path="model"></form:errors><br/><br/>

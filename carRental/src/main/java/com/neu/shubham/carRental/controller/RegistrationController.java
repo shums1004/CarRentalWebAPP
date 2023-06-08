@@ -5,7 +5,6 @@ import com.neu.shubham.carRental.dao.CustomerDAO;
 import com.neu.shubham.carRental.pojo.Customer;
 import com.neu.shubham.carRental.validator.RegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,8 +20,7 @@ import java.util.List;
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
 
     @GetMapping("/register.htm")
     public String registerCustomerGet(ModelMap model, Customer customer){
@@ -48,7 +46,7 @@ public class RegistrationController {
                 return "register";
             }
         }
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+
         try{
             CustomerDAO customerDAO = new CustomerDAO();
             customerDAO.createCustomer(customer);

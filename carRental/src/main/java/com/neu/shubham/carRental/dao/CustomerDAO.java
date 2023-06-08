@@ -84,21 +84,5 @@ public class CustomerDAO extends DAO{
             throw new CustomerException("Cannot update Customer" + e.getMessage());
         }
     }
-    public Customer getCustomerByEmail(String email) throws CustomerException {
-
-
-        Customer customer ;
-        try {
-            Criteria criteria = getSession().createCriteria(Customer.class);
-            Criterion c1 =  Restrictions.eq("email", email);
-            criteria.add(c1);
-            customer = (Customer) criteria.uniqueResult();
-        }catch (HibernateException e) {
-            rollback();
-            throw new CustomerException("Customer Not Found "+email, e);
-        }
-        return customer;
-    }
-
 
 }

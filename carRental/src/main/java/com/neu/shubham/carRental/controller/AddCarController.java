@@ -29,6 +29,7 @@ public class AddCarController {
     @GetMapping("/addCar.htm")
     public String addCarGET(ModelMap model, Car car,HttpSession session, HttpServletRequest request){
 
+        if (manageSession(session)) return "home";
         try{
             System.out.println("getcar");
             model.addAttribute("car",car);
@@ -56,23 +57,9 @@ public class AddCarController {
         CarDao carDao = new CarDao();
         List<Car> carList = carDao.list();
         System.out.println("post car");
-
-//        for(int i=0; i<carList.size();i++){
-//            if(request.getParameter("licenseNo").equals(carList.get(i).getLicenseNo()))
-//                request.setAttribute("error", "Invalid License Plate Number");
-//            return "errorPage2";
-//        }
-
             try{
-//               userCars.setUserId(customer.getId());
-//               userCars.setCarId(car.getId());
-//               userCarsDAO.createUserCars(userCars)
-//                List<Car> list1 = customer.getCarsList();
-//                list1.add(car);
-//                customer.setCarsList(list1);
-//                customerDAO.updateCustomer(customer);
+
                 car.setEmail(customer1.getEmail());
-//                car.setCustomer(customer1);
                 car.setAvailable(true);
                 carDao.createCar(car);
 
@@ -87,6 +74,7 @@ public class AddCarController {
     @GetMapping("/viewMyCars.htm")
     public String viewMyCars(ModelMap model,HttpSession session, HttpServletRequest request) throws Exception {
 
+        if (manageSession(session)) return "home";
         request.getSession();
         Customer customer1 = (Customer) session.getAttribute("customer");
         CarDao carDao = new CarDao();
@@ -126,6 +114,8 @@ public class AddCarController {
 
     @GetMapping("/updateMyCar.htm")
     public String updateMyCarGet(ModelMap model,HttpSession session, HttpServletRequest request ) throws Exception{
+
+        if (manageSession(session)) return "home";
         request.getSession();
         Customer customer2 = (Customer) session.getAttribute("customer");
         CarDao carDao = new CarDao();
@@ -165,6 +155,22 @@ public class AddCarController {
         }
 
         return "updateSuccess";
+    }
+
+    private boolean manageSession(HttpSession session) {
+        Customer customer = null;
+        if(session.getAttribute("customer") != null) {
+            customer = (Customer)session.getAttribute("customer");
+        }
+
+        if(customer == null) {
+            System.out.println("");
+            return true;
+        }
+        if(customer.getCategory().equals("customer")){
+            return true;
+        }
+        return false;
     }
 
 }

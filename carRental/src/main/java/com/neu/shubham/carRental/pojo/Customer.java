@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Component
 @Entity
-@Table(name = "userLogin", schema = "carApplication")
+@Table(name = "userLogin", schema = "carRentalApp")
 public class Customer {
 
     @Id
@@ -45,7 +45,7 @@ public class Customer {
         this.email = email;
     }
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 45)
     public String getPassword() {
         return password;
     }
